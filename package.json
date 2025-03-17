@@ -1,0 +1,36 @@
+{
+  "name": "neopay",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "server": "cd server && npm run dev",
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.22.0",
+    "eslint-config-next": "^15.2.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
+    "next": "^15.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-share": "^5.2.2",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.12",
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.0"
+  }
+}

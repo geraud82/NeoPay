@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1>Supabase Test</h1>
+  <div id="result">Loading...</div>
+
+  <script>
+    // Get Supabase credentials from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const supabaseUrl = urlParams.get('url') || 'https://ilcflijjahwzbpwyyjgh.supabase.co';
+    const supabaseKey = urlParams.get('key') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsY2ZsaWpqYWh3emJwd3l5amdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE0NTA3NjUsImV4cCI6MjA1NzAyNjc2NX0.gisDZQqEZzuge3DctVR8ZfuY1-gp5j8CIeuyD7_d1tA';
+
+    // Initialize Supabase client
+    const { createClient } = supabase;
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    // Function to fetch drivers
+    async function fetchDrivers() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<p>Checking for drivers in the database...</p>
+                            <p>Using Supabase URL: ${supabaseUrl}</p>`;
+      
+      try {
+        const { data, error } = await supabaseClient
+          .from('drivers')
+          .select('*');
+        
+        if (error) {
+          resultDiv.innerHTML += `<p style="color: red;">Error fetching drivers: ${JSON.stringify(error)}</p>`;
+          return;
+        }
+        
+        resultDiv.innerHTML += `<p>Number of drivers found: ${data.length}</p>`;
+        if (data.length > 0) {
+          resultDiv.innerHTML += `<p>First driver: ${JSON.stringify(data[0])}</p>`;
+        } else {
+          resultDiv.innerHTML += `<p>No drivers found in the database.</p>`;
+        }
+      } catch (err) {
+        resultDiv.innerHTML += `<p style="color: red;">Unexpected error: ${err.message}</p>`;
+      }
+    }
+
+    // Call the function when the page loads
+    fetchDrivers();
+  </script>
+</body>
+</html>
